@@ -1,0 +1,17 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - myrole
+  tasks:
+    - name: Create output dir
+      file:
+        path: /tmp/fedora-ssl
+        state: directory
+
+    - name: Create self signed certificate
+      fedora_ssl:
+        dest: /tmp/fedora-ssl
+      register: out
+    
+    - debug: var=out
